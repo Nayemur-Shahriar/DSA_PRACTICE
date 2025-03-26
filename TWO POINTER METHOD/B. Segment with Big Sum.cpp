@@ -25,7 +25,7 @@ int main()
     {
         sum+=a[r];
 
-        while(sum>x)
+        while(sum>=x)
         {
             ans= min(ans,r-l+1);
             sum-=a[l];
