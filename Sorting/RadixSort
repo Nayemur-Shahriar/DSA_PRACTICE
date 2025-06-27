@@ -1,0 +1,97 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+// max number khuje digit count kortechi
+
+int maxDigit(int a[], int n)
+{
+    int largest = a[0];
+    for (int i = 1; i < n; i++)
+    {
+        if (a[i] > largest)
+            largest = a[i];
+    }
+
+    int digit = 0;
+
+    while (largest > 0)
+    {
+        largest = largest / 10;
+        digit++;
+    }
+    return digit;
+}
+
+// find currect digit
+
+int digitAt(int n, int i)
+{
+    int divisor = (int)pow(10, i);
+    int result = n / divisor;
+    return result % 10;
+}
+
+
+// sorting function
+
+void radix_sort(int a[], int n )
+{
+
+    int mx= maxDigit(a,n);
+
+    for(int d=0; d<mx; d++)
+    {
+
+        int count[11]; // frequency
+        int temp[n];  // temp array as a[]
+
+        for(int i=0; i<11; i++)
+        {
+            count[i]=0;   // initializing cnt with 0
+        }
+
+        for(int i=0; i<n; i++)
+        {
+            int digit=digitAt(a[i],d);  // freq count but set to next field
+
+            count[digit+1]++;
+        }
+
+        for(int i=1; i<11; i++) // cumula must start from 1
+        {
+            count[i]=count[i]+count[i-1];   // cumulative count
+        }
+
+
+        for(int i=0; i<n; i++)
+        {
+            int digit=digitAt(a[i],d); // determing place 0 then 1 then 2 for 3 dgit
+
+            temp[count[digit]]=a[i];  // placing in temp array
+            count[digit]++;      // increasing  freq that was placed
+        }
+
+        for(int i=0; i<n; i++)
+        {
+            a[i]=temp[i];
+        }
+
+    }
+
+
+}
+
+int main()
+{
+    int a[] = {170, 45, 75, 90, 802, 24, 2, 66};
+
+    radix_sort(a,8);
+
+    for( int i=0; i<8; i++)
+    {
+        cout<<a[i]<<" ";
+    }
+
+    return 0;
+}
+
