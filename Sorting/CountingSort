@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+void countingSort(int a[],int n, int mx)
+{
+    vector<int>count(mx+1,0);
+
+    for(int i=0;i<n;i++)
+    {
+        count[a[i]]++;
+    }
+
+    int idx=0;
+
+    for(int i=0;i<=mx;i++)
+    {
+        while(count[i]--)
+        {
+            a[idx++]=i;
+        }
+    }
+}
+
+
+
+
+int main()
+{
+int arr[] = {4, 2, 2, 8, 3, 3, 1};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    int maxVal = 8;
+
+    countingSort(arr, n, maxVal);
+
+for (int i = 0; i < n; i++)
+{
+        cout << arr[i] << " ";
+}
+    return 0;
+}
+
