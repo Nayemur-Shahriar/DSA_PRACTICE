@@ -1,0 +1,72 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int partitionA(int a[],int l, int r)
+{
+    int i=l;
+    int j=r;
+
+    int pivot=a[l];
+
+    while(i<j)
+    {
+        while(a[i]<=pivot)
+        {
+            if(i==r) break;
+            else
+            {
+                i++;
+            }
+        }
+        while(a[j]>pivot)
+        {
+            if(j==0) break;
+            else
+            {
+                j--;
+            }
+        }
+
+        if(i<j)
+        {
+            swap(a[i],a[j]);
+        }
+    }
+
+    swap(a[l],a[j]);
+
+    return j;
+}
+
+
+
+
+void Qsort(int a[], int l, int r)
+{
+    if(l<r)
+    {
+        int partitionPos= partitionA(a,l,r);
+
+        Qsort(a,l,partitionPos-1);
+        Qsort(a,partitionPos+1,r);
+    }
+}
+
+
+
+int main()
+{
+    int a[]= {17,5,19,45,3};
+
+    int n=5;
+
+    Qsort(a,0,n-1);
+
+    for(int i=0; i<n; i++)
+    {
+        cout<<a[i]<<" ";
+    }
+
+    return 0;
+}
+
